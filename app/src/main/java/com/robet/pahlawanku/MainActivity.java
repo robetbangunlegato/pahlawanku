@@ -1,14 +1,31 @@
 package com.robet.pahlawanku;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class MainActivity extends AppCompatActivity {
+    private RecyclerView rvPahlawan;
+    private ArrayList<ModelPahlawan> data = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        rvPahlawan = findViewById(R.id.rv_pahlawan);
+        rvPahlawan.setHasFixedSize(true);
+        data.addAll(DataPahlawan.ambilDataPahlawan());
+        tampilDataCard();
+
+    }
+
+    public void tampilDataCard(){
+        rvPahlawan.setLayoutManager(new LinearLayoutManager(this));
+        AdapterCard AC = new AdapterCard(data);
+        rvPahlawan.setAdapter(AC);
+
     }
 }
